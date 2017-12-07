@@ -29,7 +29,6 @@ echo '{ "store": {
     }
   }
 } ' \
-| jq '.store.book[] | select(.category=="fiction") |.author'
+| jq '.store.book[] | select(.category=="fiction" ) | select(.price > 10).author  '
 "Evelyn Waugh"
-"Herman Melville"
 "J. R. R. Tolkien"
