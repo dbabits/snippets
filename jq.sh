@@ -1,5 +1,6 @@
 # https://github.com/stedolan/jq/wiki/Cookbook
 # https://github.com/stedolan/jq/wiki/For-JSONPath-users
+# https://jqplay.org/s/M5Ky1KJd-C
 echo '{ "store": {
     "book": [ 
       { "category": "reference",
