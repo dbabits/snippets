@@ -1,0 +1,1 @@
+echo "cat /foo[name='abc']/value/text()" |xmllint -shell /tmp/foo.xml
