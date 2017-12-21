@@ -5,6 +5,15 @@ echo 'foo moo' 2>&1 |grep -v bar|awk '{print $2}'
 echo retcode=${PIPESTATUS[0]}
 EOF
 )
+echo "$output"
+
+#or
+output=$(
+echo 'foo moo' 2>&1 |grep -v bar|awk '{print $2}'
+echo retcode=${PIPESTATUS[0]}
+)
+echo "$output"
+
 
 #get string between tokens, using grep
 > echo "Here is a string is a string" | grep -o -P '(?<=Here).*(?=string)'
