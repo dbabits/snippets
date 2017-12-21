@@ -24,3 +24,10 @@ header
 
 line1
 line2
+
+#xargs gems
+echo "Here is a string is a string
+Here is a string is a string2
+" \
+| grep -o -P '(?<=Here).*?(?=string)'  \
+|xargs -n 1 --delimiter='\n' -I{}  sh -c 'echo {} ' 
