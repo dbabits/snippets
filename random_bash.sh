@@ -40,3 +40,34 @@ Here is a string is a string2
 " \
 | grep -o -P '(?<=Here).*?(?=string)'  \
 |xargs -n 1 --delimiter='\n' -I{}  sh -c 'echo {} ' 
+
+> retcode=1; if [[ $retcode -eq 0 ]]; then echo true;else echo false;fi
+false
+> retcode=1; if [[ $retcode == 0 ]]; then echo true;else echo false;fi
+false
+> unset retcode; if [[ $retcode == 0 ]]; then echo true;else echo false;fi
+false
+> unset retcode; if [[ $retcode -eq 0 ]]; then echo true;else echo false;fi
+true                <<Bad
+> unset retcode; if [[ $retcode -eq 1 ]]; then echo true;else echo false;fi
+false               <<???
+> unset retcode; if [ $retcode -eq 0 ]; then echo true;else echo false;fi
+-bash: [: -eq: unary operator expected
+false
+> unset retcode; if [ "$retcode" == "0" ]; then echo true;else echo false;fi
+false
+> unset retcode; if [[ "$retcode" == "0" ]]; then echo true;else echo false;fi
+false
+> retcode=12345; if [[ "$retcode" > "12346" ]]; then echo true;else echo false;fi
+false
+>  retcode=123456; if [ "$retcode" > "12346" ]; then echo true;else echo false;fi
+true
+> retcode=123456; if [[ "$retcode" > "12346" ]]; then echo true;else echo false;fi
+false
+> retcode=123456; if [[ $retcode > 12346 ]]; then echo true;else echo false;fi
+false
+> retcode=123456; if [ $retcode > 12346 ]; then echo true;else echo false;fi
+true
+> retcode=123456; if [[ $retcode -gt 12346 ]]; then echo true;else echo false;fi
+true
+
