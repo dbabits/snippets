@@ -71,3 +71,8 @@ true
 > retcode=123456; if [[ $retcode -gt 12346 ]]; then echo true;else echo false;fi
 true
 
+.gitconfig:
+  1 [alias]
+  2 l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  3 ll= !git l --oneline | fzf --multi --preview 'git show {+2}'
+
