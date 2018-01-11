@@ -1,4 +1,8 @@
 #/bin/bash
+strip_non_printables() {
+     sed 's/[^[:print:]]//g'
+}
+
 #print all lines after pattern (useful in self-executing templates, e.g. jils)
 echo '
 1
