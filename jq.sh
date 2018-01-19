@@ -35,3 +35,10 @@ echo '{ "store": {
 | jq '.store.book[] | select(.category=="fiction" ) | select(.price > 10).author  '
 "Evelyn Waugh"
 "J. R. R. Tolkien"
+
+jq 'recurse(.[]?) | objects | select(has("foo"))'
+{
+  "foo": "bar",
+  "whatever": "......"
+}
+| jq '..|.foo?'
