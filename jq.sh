@@ -65,6 +65,11 @@ json=$(cat <<EOF
     {
       "first_name": "John Jr",
       "last_name": "Smith"
+    },
+    {
+      "grand_children":[
+         "first_name":"dima"
+      ]
     }
   ]
 }
@@ -74,4 +79,4 @@ EOF
 
 #see https://github.com/stedolan/jq/wiki/Cookbook#delete-elements-from-objects-recursively
 #If your jq does not have walk/1, then you can copy its definition from https://github.com/stedolan/jq/blob/master/src/builtin.jq
-walk(if type == "object" and .first_name then .full_name=.first_name+"-"+.last_name else . end)
+walk(if type == "object" and .first_name and .last_name then .full_name=.first_name+"-"+.last_name else . end)
