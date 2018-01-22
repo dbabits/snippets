@@ -75,7 +75,17 @@ json=$(cat <<EOF
 }
 EOF
 )
-..|(.first_name +"-"+.last_name)?
+
+$ echo "$json"|jq '..|(.first_name +"-"+.last_name)?'
+"John-Smith"
+"-"
+"Bobby Sue-Smith"
+"John Jr-Smith"
+
+$ echo "$json" | jq '..|select(.first_name != null and .last_name !=null)?|[.first_name,.last_name]?|join("-")'
+"John-Smith"
+"Bobby Sue-Smith"
+"John Jr-Smith"
 
 #see https://github.com/stedolan/jq/wiki/Cookbook#delete-elements-from-objects-recursively
 #If your jq does not have walk/1, then you can copy its definition from https://github.com/stedolan/jq/blob/master/src/builtin.jq
