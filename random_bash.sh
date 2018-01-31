@@ -22,6 +22,17 @@ is a string is a
 > echo "Here is a string is a string" | grep -o -P '(?<=Here).*?(?=string)'
 is a
 
+substr_between() {
+ grep -o -P "(?<=$1).*?(?=$2)"
+}
+> echo "foo bar baz" | substr_between 'foo' 'baz'
+ bar
+> echo "foo bar baz" | substr_between 'bar' '$'
+ baz
+> echo "foo bar baz" | substr_between '^' 'bar'
+foo
+
+
 #Sort, except header:
 echo '
 header
