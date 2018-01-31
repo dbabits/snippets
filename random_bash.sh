@@ -15,7 +15,7 @@ echo retcode=${PIPESTATUS[0]}
 echo "$output"
 
 
-#get string between tokens, using grep
+#get string between tokens, using grep. See lookahead assertions: https://www.regular-expressions.info/completelines.html
 > echo "Here is a string is a string" | grep -o -P '(?<=Here).*(?=string)'
 is a string is a
 
