@@ -56,6 +56,12 @@ Here is a string is a string2
 | grep -o -P '(?<=Here).*?(?=string)'  \
 |xargs -n 1 --delimiter='\n' -I{}  sh -c 'echo {} ' 
 
+# union/intersect/difference
+cat a b | sort | uniq > c   # c is a union b
+cat a b | sort | uniq -d > c   # c is a intersect b
+cat a b b | sort | uniq -u > c   # c is set difference a - b
+      
+#IF headaches:
 > retcode=1; if [[ $retcode -eq 0 ]]; then echo true;else echo false;fi
 false
 > retcode=1; if [[ $retcode == 0 ]]; then echo true;else echo false;fi
