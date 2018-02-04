@@ -60,7 +60,14 @@ Here is a string is a string2
 cat a b | sort | uniq > c   # c is a union b
 cat a b | sort | uniq -d > c   # c is a intersect b
 cat a b b | sort | uniq -u > c   # c is set difference a - b
-      
+
+#comm [-123]
+$ comm  <(sort a) <(sort b)
+                line 1
+line 2
+line 3
+        line 4
+
 #IF headaches:
 > retcode=1; if [[ $retcode -eq 0 ]]; then echo true;else echo false;fi
 false
