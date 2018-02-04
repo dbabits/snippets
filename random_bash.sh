@@ -57,11 +57,32 @@ Here is a string is a string2
 |xargs -n 1 --delimiter='\n' -I{}  sh -c 'echo {} ' 
 
 # union/intersect/difference
-cat a b | sort | uniq > c   # c is a union b
-cat a b | sort | uniq -d > c   # c is a intersect b
-cat a b b | sort | uniq -u > c   # c is set difference a - b
+cat a b | sort | uniq       #a union b
+cat a b | sort | uniq -d    #a intersect b
+cat a b | sort | uniq -u    #diff a and b
+cat a b b | sort | uniq -u  #set difference a - b
+cat a a b | sort | uniq -u  #set difference b - a
 
-#comm [-123]
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat a
+line 1
+line 2
+line 3
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat b
+line 1
+line 4
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat a b |sort|uniq -d
+line 1
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat a b |sort|uniq -u
+line 2
+line 3
+line 4
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat a b b |sort|uniq -u
+line 2
+line 3
+dima@LAPTOP-MA6OEPO9:~/development/utils$ cat a a b |sort|uniq -u
+line 4
+
+#Close, but slightly different: comm [-123]
 $ comm  <(sort a) <(sort b)
                 line 1
 line 2
