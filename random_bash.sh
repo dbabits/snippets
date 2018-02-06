@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#rolling log pattern: (.log, .log.1,...)
+# https://stackoverflow.com/questions/21792385/how-to-use-ls-to-list-out-files-that-end-in-numbers
+shopt -s extglob
+ls stream.log*(.)*([0-9])
 
 https://github.com/adamdrake/the-art-of-command-line/blob/master/README.md#system-debugging
 
