@@ -1,5 +1,13 @@
 #!/bin/bash
 
+strip_non_printables() {
+     sed 's/[^[:print:]]//g'
+}
+#see https://access.redhat.com/solutions/1136493 
+#Non printable chars sent by mailx result in email arriving as binary attachment.
+#Non printable chars can happen when you copy-paste from an Outlook email into your code.This is how to resolve it
+echo "text pasted from outlook" | dos2unix | strip_non_printables | mailx -s
+
 #rolling log pattern: (.log, .log.1,...)
 # https://stackoverflow.com/questions/21792385/how-to-use-ls-to-list-out-files-that-end-in-numbers
 shopt -s extglob
