@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#select not null even if query returns nothing
+"SELECT CASE WHEN COUNT(1) > 0 THEN IFNULL(byte_offset,0) ELSE 0 END AS byte_offset FROM control;"
