@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Conditional pipeline. https://unix.stackexchange.com/questions/38310/conditional-pipeline
+| ([[ "$var" > "0" ]] && sed 1d || cat) |
+| if [[ "$var" > "0" ]]; then  sed 1d; else cat; fi |
+
 strip_non_printables() {
      sed 's/[^[:print:]]//g'
 }
