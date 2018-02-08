@@ -1,4 +1,8 @@
 #/bin/bash
+
+#remove first 10 lines:
+sed 1,10d
+
 strip_non_printables() {
      sed 's/[^[:print:]]//g'
 }
