@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#see max memory usage for process:
+$ alias ps3='ps -Ao pid,user,start_time,etime,pcpu,vsize,rss,comm,args --sort=-rss'
+$ while true; do ps3|grep FsShell|grep -v grep; sleep 1; done 2>&1 |tee /tmp/tmp.log
+$ awk '{print $6"|"$7}' /tmp/tmp.log| sort -t '|' -k2 -n |less
+
+
 # Conditional pipeline. https://unix.stackexchange.com/questions/38310/conditional-pipeline
 | ([[ "$var" > "0" ]] && sed 1d || cat) |
 | if [[ "$var" > "0" ]]; then  sed 1d; else cat; fi |
