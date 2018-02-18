@@ -1,0 +1,10 @@
+http://www.brendangregg.com/Slides/LISA2012_methodologies.pdf
+SE Method: Linux Performance Checklist: http://www.brendangregg.com/USEmethod/use-linux.html
+cpustat
+Linux perf
+
+Who: grep(1) is on-CPU for 8 minutes
+• Why: UTF8 encoding, as LANG=en_US.UTF-8
+• LANG=C avoided UTF8 encoding – 2000x faster
+
+dtrace
