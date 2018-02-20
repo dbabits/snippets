@@ -131,6 +131,14 @@ false
 false
 > retcode=12345; if [[ "$retcode" > "12346" ]]; then echo true;else echo false;fi
 false
+>retcode=12345; if [[ "$retcode" > "2346" ]]; then echo true;else echo false;fi
+false          <<BAD
+> retcode=12345; if [[ $retcode > 2346 ]]; then echo true;else echo false;fi
+false          <<BAD
+> retcode=12345; if [[ $retcode -gt 2346 ]]; then echo true;else echo false;fi
+true
+> retcode=12345; if [ "$retcode" > "2346" ]; then echo true;else echo false;fi
+true
 >  retcode=123456; if [ "$retcode" > "12346" ]; then echo true;else echo false;fi
 true
 > retcode=123456; if [[ "$retcode" > "12346" ]]; then echo true;else echo false;fi
