@@ -1,7 +1,23 @@
-
+cat<<EOF > /tmp/foo.xml
 <foo>
  <name>abc</name>
  <value>123</value>
 </foo>
+EOF
+
+
 #select value where name=foo
 echo "cat /foo[name='abc']/value/text()" |xmllint -shell /tmp/foo.xml
+
+#select both elements
+echo "cat /foo/*[self::name or self::value]/text()" |xmllint -shell /tmp/foo.xml
+/ >  -------
+abc
+ -------
+123
+/
+
+#xslt-transform xml to csv
+https://stackoverflow.com/questions/23493643/converting-xml-to-csv-using-xsltproc
+https://stackoverflow.com/questions/723226/producing-a-new-line-in-xslt
+xsltproc xml2csv.xslt foo.xml
