@@ -5,6 +5,44 @@ $ alias ps3='ps -Ao pid,user,start_time,etime,pcpu,vsize,rss,comm,args --sort=-r
 $ while true; do ps3|grep FsShell|grep -v grep; sleep 1; done 2>&1 |tee /tmp/tmp.log
 $ awk '{print $6"|"$7}' /tmp/tmp.log| sort -t '|' -k2 -n |less
 
+redirect_io(){
+ exec 3>&1 # link file descriptor 3 w stdout.Save stdout
+ exec 4>&2 # same for stderr
+ exec >>$logfile 2>&1 # redirect both stdout and stderr to file
+}
+restore_io(){
+ exec 1>&3
+ exec 2>&4
+}
+trap "restore_io;ls -l $logfile" EXIT
+
+#make colors only if stderr is connected to term(stdout has been redirected
+#Otherwise, control chars appear if puoed through or redirected to file
+#Also, dont make these fns screw any caller return code-must return 0 always
+#Otherwise code like >/tmp/foo 2>&1 wilredirect_io(){
+ exec 3>&1 # link file descriptor 3 w stdout.Save stdout
+ exec 4>&2 # same for stderr
+ exec >>$logfile 2>&1 # redirect both stdout and stderr to file
+}
+restore_io(){
+ exec 1>&3
+ exec 2>&4
+}
+trap "restore_io;ls -l $logfile" EXIT
+
+#make colors only if stderr is connected to term(stdout has been redirected
+#Otherwise, control chars appear if puoed through or redirected to file
+#Also, dont make these fns screw any caller return code-must return 0 always
+#Otherwise code like >/tmp/foo 2>&1 will not behave same as >/tmp/foo
+red()     { [[ -t 2 ]] && tput setaf 1; return 0; }
+green()   { [[ -t 2 ]] && tput setaf 2; return 0; }
+yellow()  { [[ -t 2 ]] && tput setaf 3; return 0; }
+blue()    { [[ -t 2 ]] && tput setaf 4; return 0; }
+magenta() { [[ -t 2 ]] && tput setaf 5; return 0; }
+cyan()    { [[ -t 2 ]] && tput setaf 6; return 0; }
+reset()   { [[ -t 2 ]] && tput sgr0;    return 0; }
+
+
 
 # Conditional pipeline. https://unix.stackexchange.com/questions/38310/conditional-pipeline
 | ([[ "$var" > "0" ]] && sed 1d || cat) |
