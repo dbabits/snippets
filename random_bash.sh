@@ -16,19 +16,6 @@ restore_io(){
 }
 trap "restore_io;ls -l $logfile" EXIT
 
-#make colors only if stderr is connected to term(stdout has been redirected
-#Otherwise, control chars appear if puoed through or redirected to file
-#Also, dont make these fns screw any caller return code-must return 0 always
-#Otherwise code like >/tmp/foo 2>&1 wilredirect_io(){
- exec 3>&1 # link file descriptor 3 w stdout.Save stdout
- exec 4>&2 # same for stderr
- exec >>$logfile 2>&1 # redirect both stdout and stderr to file
-}
-restore_io(){
- exec 1>&3
- exec 2>&4
-}
-trap "restore_io;ls -l $logfile" EXIT
 
 #make colors only if stderr is connected to term(stdout has been redirected
 #Otherwise, control chars appear if puoed through or redirected to file
