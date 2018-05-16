@@ -5,11 +5,17 @@ $ alias ps3='ps -Ao pid,user,start_time,etime,pcpu,vsize,rss,comm,args --sort=-r
 $ while true; do ps3|grep FsShell|grep -v grep; sleep 1; done 2>&1 |tee /tmp/tmp.log
 $ awk '{print $6"|"$7}' /tmp/tmp.log| sort -t '|' -k2 -n |less
 
-redirect_io(){
+redirect_io_to_log(){
  exec 3>&1 # link file descriptor 3 w stdout.Save stdout
  exec 4>&2 # same for stderr
  exec >>$logfile 2>&1 # redirect both stdout and stderr to file
 }
+
+redirect_io_to_stderr(){
+ exec 3>&1 # link file descriptor 3 w stdout.Save stdout
+ exec >&2  # replace stdout w stderr, so nothing will mess up stdout
+}
+
 restore_io(){
  exec 1>&3
  exec 2>&4
