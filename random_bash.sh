@@ -8,7 +8,8 @@ $ awk '{print $6"|"$7}' /tmp/tmp.log| sort -t '|' -k2 -n |less
 redirect_io_to_log(){
  exec 3>&1 # link file descriptor 3 w stdout.Save stdout
  exec 4>&2 # same for stderr
- exec >>$logfile 2>&1 # redirect both stdout and stderr to file
+ exec >>$logfile 2>&1 # redirect both stdout and stderr to file.nothing will show on screen
+ exec > >(tee -a $logfile) 2>$1 #print both stderr and stdout to screen, and to the log
 }
 
 redirect_io_to_stderr(){
@@ -22,6 +23,7 @@ restore_io(){
 }
 trap "restore_io;ls -l $logfile" EXIT
 
+$(return >/dev/null 2>&1); IS_SOURCED=$? #rwturn can only be in function or sourced script.if script is not sourced,the return code will be 1
 
 #make colors only if stderr is connected to term(stdout has been redirected
 #Otherwise, control chars appear if puoed through or redirected to file
