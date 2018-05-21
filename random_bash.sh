@@ -5,6 +5,14 @@ $ alias ps3='ps -Ao pid,user,start_time,etime,pcpu,vsize,rss,comm,args --sort=-r
 $ while true; do ps3|grep FsShell|grep -v grep; sleep 1; done 2>&1 |tee /tmp/tmp.log
 $ awk '{print $6"|"$7}' /tmp/tmp.log| sort -t '|' -k2 -n |less
 
+#How to properly do interactive ssh while sourcing own file
+#-t is a must, otherwise will see complain about no job control
+#--long options before -short
+#-i is a must or it exits
+#source .bashrc from your file if needed
+#craft PROMPT_COMMAND for putty title display
+ssh -t user@host bash --rcfile /path/.myprofe -i
+
 redirect_io_to_log(){
  exec 3>&1 # link file descriptor 3 w stdout.Save stdout
  exec 4>&2 # same for stderr
