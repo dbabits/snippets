@@ -1,4 +1,9 @@
 #!/bin/bash
 
+--pivot rows to columns:
+select col1,count(*),group_concat(col2,'|')
+from T
+group by col1
+
 #select not null even if query returns nothing
 "SELECT CASE WHEN COUNT(1) > 0 THEN IFNULL(c1,0) ELSE 0 END AS c1 FROM t1;"
