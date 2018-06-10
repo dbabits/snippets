@@ -15,3 +15,4 @@ RX: bytes  packets  errors  dropped overrun mcast
 TX: bytes  packets  errors  dropped carrier collsns                                                    
        68.7M      889k     0       0       0       0
 ```
+1. iftop: good, but interactive(curses-based), and requires root
