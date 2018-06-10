@@ -32,6 +32,14 @@ eth0                           : 22:48:50.000755      1s      5s     15s     60s
 10:49:56 PM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s
 10:49:57 PM      eth0      0.99      0.99      0.04      0.32      0.00      0.00      0.00
 ```
+1. [ec2-user@ip-172-31-38-111 network_monitoring]$ cat /proc/net/dev
+```
+Inter-|   Receive                                                |  Transmit
+ face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+  eth0: 411661445 1097018    0    0    0     0          0         0 77996878  916249    0    0    0     0       0          0
+    lo:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+docker0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0
+```
 1. cat /sys/class/net/eth0/statistics/rx_bytes /sys/class/net/eth0/statistics/tx_bytes
 ```
 411508060
