@@ -7,3 +7,6 @@ group by col1
 
 #select not null even if query returns nothing
 "SELECT CASE WHEN COUNT(1) > 0 THEN IFNULL(c1,0) ELSE 0 END AS c1 FROM t1;"
+
+Float division(note *1.0}:
+SELECT ROUND((sum(t2.value-sum(t1.value)) *1.0/sum(t1.value)*100,2) as pct_diff
