@@ -1,5 +1,23 @@
 #!/bin/bash
 
+--pivot:
+cat <<EOF |  sqlite -separator ',' pivot.sqlite '.import /dev/stdin t'
+id,counter,map,reduce,total
+"job_1540515215370_2592","FILE_BYTES_READ",0,0,0
+"job_1540515215370_2592","FILE_BYTES_WRITTEN",1138616773,268862,1138885635
+"job_1540515215370_2592","HDFS_BYTES_READ",2642139400,0,2642139400
+EOF
+
+
+select
+     id
+    ,max(case when counter = 'FILE_BYTES_READ'    then total end) as FILE_BYTES_READ
+    ,max(case when counter = 'FILE_BYTES_WRITTEN' then total end) as FILE_BYTES_WRITTEN
+    ,max(case when counter = 'HDFS_BYTES_READ'    then total end) as HDFS_BYTES_READ
+from t
+group by id
+;
+
 --pivot rows to columns:
 select col1,count(*),group_concat(col2,'|')
 from T
