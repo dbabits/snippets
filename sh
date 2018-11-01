@@ -1,4 +1,7 @@
 #!/bin/bash
+#substring in bash:
+> string="1541084440682";echo "${string:0:${#string}-3}"
+1541084440
 
 #see max memory usage for process:
 $ alias ps3='ps -Ao pid,user,start_time,etime,pcpu,vsize,rss,comm,args --sort=-rss'
