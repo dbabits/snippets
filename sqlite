@@ -1,6 +1,10 @@
 #!/bin/bash
 
---pivot:
+#convert milliseconds to hours/mins/secs: https://stackoverflow.com/a/15647770/1739713
+> sqlite <<<"SELECT '120978=>' || (120978/1000/3600) || ' hours, ' || (120978/1000%3600/60) ||' minutes.';"
+120978=>0 hours, 2 minutes.
+
+#pivot 2:
 cat <<EOF |  sqlite -separator ',' pivot.sqlite '.import /dev/stdin t'
 id,counter,map,reduce,total
 "job_1540515215370_2592","FILE_BYTES_READ",0,0,0
@@ -18,7 +22,7 @@ from t
 group by id
 ;
 
---pivot rows to columns:
+#pivot rows to columns:
 select col1,count(*),group_concat(col2,'|')
 from T
 group by col1
