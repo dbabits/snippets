@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#QUERY_STRING parsing:
+$ echo "cluster=123&foo=bar" |perl -F"cluster=(.+?)(&|$)" -lane 'print $F[1]'
+123
+$ echo "cluster=123&foo=bar" |perl -F"foo=(.+?)(&|$)" -lane 'print $F[1]'
+bar
