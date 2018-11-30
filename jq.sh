@@ -3,7 +3,8 @@
 #Can simplify without grouping if | is last: [.level,.logger_name, .content | gsub("[\\n\\t]"; "")  ]
 #Alternatively: walk(if type == "string" then gsub("\\p{Cc}"; " ") else . end) |[.level,.content, .logger_name]
 #  \p{Cc} is a Unicode category specifier: http://www.regular-expressions.info/unicode.html 
-cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; "") ), .logger_name]'
+# [0:20] truncates to first 20 chars
+cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; " ")[0:20] ), .logger_name]'
 {
 "HOSTNAME":"server1.example",
 "level":"WARN",
