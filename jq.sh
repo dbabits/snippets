@@ -2,6 +2,7 @@
 #See: https://stackoverflow.com/questions/40321035/remove-escape-sequence-characters-like-newline-tab-and-carriage-return-from-jso
 #Can simplify without grouping if | is last: [.level,.logger_name, .content | gsub("[\\n\\t]"; "")  ]
 #Alternatively: walk(if type == "string" then gsub("\\p{Cc}"; " ") else . end) |[.level,.content, .logger_name]
+#  \p{Cc} is a Unicode category specifier: http://www.regular-expressions.info/unicode.html 
 cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; "") ), .logger_name]'
 {
 "HOSTNAME":"server1.example",
