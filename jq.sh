@@ -4,6 +4,7 @@
 #Alternatively: walk(if type == "string" then gsub("\\p{Cc}"; " ") else . end) |[.level,.content, .logger_name]
 #  \p{Cc} is a Unicode category specifier: http://www.regular-expressions.info/unicode.html 
 # [0:20] truncates to first 20 chars
+# -r is used to make jq interpolate the string (expanding the \n and \t sequences)
 cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; " ")[0:20] ), .logger_name]'
 {
 "HOSTNAME":"server1.example",
