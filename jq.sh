@@ -1,3 +1,16 @@
+#replace characters in value:
+#https://stackoverflow.com/questions/40321035/remove-escape-sequence-characters-like-newline-tab-and-carriage-return-from-jso
+#can simplify without grouping if | is last: [.level,.logger_name, .content | gsub("[\\n\\t]"; "")  ]
+cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; "") ), .logger_name]'
+{
+"HOSTNAME":"server1.example",
+"level":"WARN",
+"level_value":30000,
+"logger_name":"server1.example.adapter",
+"content":"ERROR LALALLA\nERROR INFO NANANAN\tSOME MORE ERROR INFO"
+}
+EOF
+
 # https://github.com/stedolan/jq/wiki/Cookbook
 # https://github.com/stedolan/jq/wiki/For-JSONPath-users
 # https://jqplay.org/s/M5Ky1KJd-C
