@@ -1,10 +1,11 @@
 #replace characters in value:
 #See: https://stackoverflow.com/questions/40321035/remove-escape-sequence-characters-like-newline-tab-and-carriage-return-from-jso
 #Can simplify without grouping if | is last: [.level,.logger_name, .content | gsub("[\\n\\t]"; "")  ]
-#Alternatively: walk(if type == "string" then gsub("\\p{Cc}"; " ") else . end) |[.level,.content, .logger_name]
+#Alternatively: (https://jqplay.org/s/usBT4XfMaE): walk(if type == "string" then gsub("\\p{Cc}"; " ") else . end) |[.level,.content, .logger_name] 
 #  \p{Cc} is a Unicode category specifier: http://www.regular-expressions.info/unicode.html 
 # [0:20] truncates to first 20 chars
 # -r is used to make jq interpolate the string (expanding the \n and \t sequences)
+# https://jqplay.org/s/uqwmmsbkvi
 cat<<EOF| jq -r '[.level,(.content | gsub("[\\n\\t]"; " ")[0:20] ), .logger_name]'
 {
 "HOSTNAME":"server1.example",
