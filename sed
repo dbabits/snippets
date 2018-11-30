@@ -1,5 +1,9 @@
 #/bin/bash
 
+#remove \t and \n:
+sed 's/\\[tn]//g'
+tr -d '\n\t'
+
 #remove first 10 lines:
 sed 1,10d
 
