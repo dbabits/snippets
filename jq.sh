@@ -139,3 +139,13 @@ EOF
 "FILE_BYTES_READ",0,0,0
 "FILE_BYTES_WRITTEN",1138616773,268862,1138885635
 "FILE_READ_OPS",0,0,0
+
+#WRONG:
+>jq '.file-id' #Thinks ‘-’ is subtraction!
+#RIGHT:
+>jq '.["file-id"]' #Need to use array-style access
+
+#WRONG:
+>jq '..a'
+#RIGHT:
+>jq '.. | a'
