@@ -54,6 +54,17 @@ echo '{ "store": {
 "Evelyn Waugh"
 "J. R. R. Tolkien"
 
+jq 'path(..)|map(tostring)|join("/")'
+""
+"store"
+"store/book"
+"store/book/0"
+"store/book/0/category"
+"store/book/0/author"
+"store/book/0/title"
+"store/book/0/price"
+"store/book/1"
+
 jq 'recurse(.[]?) | objects | select(has("foo"))'
 {
   "foo": "bar",
