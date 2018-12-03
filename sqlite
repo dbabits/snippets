@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#group by the hour and see distribution:
+sqlite> select node, count(*),group_concat(datetime(ts,'unixepoch','localtime'),',') from consul_svc_handler where node in ('node1') GROUP BY (ts/(60*60));
+node                   count(*)    group_concat(datetime(ts,'unixepoch','localtime'),',')
+---------------------  ----------  ---------------------------------------------------------------------------------------------
+node1                  5           2018-11-30 14:00:08,2018-11-30 14:00:16,2018-11-30 14:01:08,2018-11-30 14:01:16,2018-11-30 14:01:29
+node1                  2           2018-11-30 16:00:26,2018-11-30 16:01:26
+
 #convert milliseconds to hours/mins/secs: https://stackoverflow.com/a/15647770/1739713
 > sqlite <<<"SELECT '120978=>' || (120978/1000/3600) || ' hours, ' || (120978/1000%3600/60) ||' minutes.';"
 120978=>0 hours, 2 minutes.
