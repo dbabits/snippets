@@ -1,3 +1,7 @@
+#check on a RHEL server for the installed patches
+$ sudo rpm -q --changelog kernel-`uname -r` | grep futex | grep ref
+- [kernel] futex: Mention key referencing differences between shared and private futexes (Larry Woodman) [1167405]
+- [kernel] futex: Ensure get_futex_key_refs() always implies a barrier (Larry Woodman) [1167405]
 
 #redirect port 80 to the Grafana port:
 $ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
