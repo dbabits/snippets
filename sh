@@ -1,4 +1,9 @@
 #!/bin/bash
+#pipe conditionally based on retcode:
+my_fn && /bin/true | command || echo skipping pipe
+
+my_fn| if [[ -n "$FOO" ]]; then command|command2;else command3;fi
+
 #substring in bash:
 > string="1541084440682";echo "${string:0:${#string}-3}"
 1541084440
