@@ -1,7 +1,11 @@
 #!/bin/bash
-#pipe conditionally based on retcode:
-my_fn && /bin/true | command || echo skipping pipe
-
+#pipe conditionally based on retcode
+#This is wrong and will not work:
+#my_fn && /bin/true | command || echo skipping pipe
+In a pipeline, all commands are started and run concurrently,
+not one after the other. So, you need to store
+output somewhere. Try xargs -r
+my_fn |xargs -r -n 1 -L 1 -I % bash -c 'echo %|command'
 my_fn| if [[ -n "$FOO" ]]; then command|command2;else command3;fi
 
 #substring in bash:
