@@ -12,6 +12,7 @@ strip_non_printables() {
 }
 
 #print all lines after pattern (useful in self-executing templates, e.g. jils)
+#this says delete all between line 1 to pattern line
 echo '
 1
 2
