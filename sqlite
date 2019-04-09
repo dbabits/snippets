@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#can do this:
+prog|sqlite -csv :memory: '.import /dev/stdin T' '.header on' '.mode column' 'select * from T;' 'select count(*) from T;'
+
 #group by the hour and see distribution:
 sqlite> select node, count(*),group_concat(datetime(ts,'unixepoch','localtime'),',') from consul_svc_handler where node in ('node1') GROUP BY (ts/(60*60));
 node                   count(*)    group_concat(datetime(ts,'unixepoch','localtime'),',')
