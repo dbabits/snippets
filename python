@@ -5,6 +5,7 @@
 # That despite examples online
 
 #Here, piping through bash is a must IF command includes process substitution, or get bash syntax error
+# Alternatively, save it to a file and execute the file - easier.
 #shebang line no good
 #-s -- to oass args
 cmd ='''
