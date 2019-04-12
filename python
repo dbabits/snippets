@@ -6,12 +6,13 @@
 
 #Here, piping through bash is a must IF command includes process substitution, or get bash syntax error
 #shebang line no good
+#-s -- to oass args
 cmd ='''
-cat <<'EOF' |/bin/bash
+cat <<'EOF' |/bin/bash -s --
   cat <(echo 'Hello')
 EOF
      '''
-p=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True,universal_newlines=True)
+p=subprocess.Popen([cmd, 'arg1'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True,universal_newlines=True)
 for line in iter(p.stdout.readline,’’): print(line.rstrip());
 
 p.stdout.close()
