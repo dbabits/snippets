@@ -1,0 +1,15 @@
+# Note:
+# b'' + universal_newlines=False: everything prefixed w b'
+# NO b'' + universal_newlines=True : good
+# Any other combination: endless loop
+# That despite examples online
+
+#Here, piping through bash is a must IF command includes process substitution, or get bash syntax error
+#shebang line no good
+cmd ='''
+cat <<'EOF' |/bin/bash
+  cat <(echo 'Hello')
+EOF
+     '''
+p=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True,universal_newlines=True)
+for line in iter(p.stdout.readline,’’): print(line.rstrip());
