@@ -13,3 +13,8 @@ EOF
      '''
 p=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True,universal_newlines=True)
 for line in iter(p.stdout.readline,’’): print(line.rstrip());
+
+p.stdout.close()
+returncode=p.wait()
+
+#Note, must do the above, simpme p.returncode returns None
