@@ -1,3 +1,5 @@
+#https://backreference.org/2011/08/10/running-local-script-remotely-with-arguments/
+
 #!/bin/bash
 #pipe conditionally based on retcode
 #This is wrong and will not work:
