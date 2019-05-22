@@ -6,7 +6,7 @@ prog|sqlite -csv :memory: '.import /dev/stdin T' '.header on' '.mode column' 'se
 #Generic group by time period:
 select strftime('%Y-%m',ts) as ym, count(*)
 from t
-geoup by strftime('%Y-%m',ts);--DO NOT group by ym, gives wrong result
+group by strftime('%Y-%m',ts);--DO NOT group by ym, gives wrong result
 
 
 #group by the hour and see distribution:
