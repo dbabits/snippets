@@ -1,4 +1,5 @@
 # Note:
+# in iter() call:
 # b'' + universal_newlines=False: everything prefixed w b'
 # NO b'' + universal_newlines=True : good
 # Any other combination: endless loop
