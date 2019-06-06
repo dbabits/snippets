@@ -1,3 +1,9 @@
+#If a string prints with embedded \n, 
+#and is prefixed with b"str" - it's binary repr -
+#The b indicates that it's a binary string
+#use s.decode() to print as string. Opposite is repr()
+print(printData().decode())
+
 # Note:
 # in iter() call:
 # b'' + universal_newlines=False: everything prefixed w b'
