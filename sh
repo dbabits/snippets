@@ -1,3 +1,23 @@
+Use in-memory sqlite and access it from different functions in your bash, using shell's coproc feature:
+All in-memory processing 
+```bash
+coproc sqlite
+echo "create table foo(c1);" >&${COPROC[1]}
+echo "insert into foo(c1) values(42);" >&${COPROC[1]}
+echo "insert into foo(c1) values(77);" >&${COPROC[1]}
+echo "insert into foo(c1) values(78);" >&${COPROC[1]}
+echo "select rowid,c1 from foo;" >&${COPROC[1]}
+while read -t 0 -u ${COPROC[0]} && IFS='|' read -e -u ${COPROC[0]} rowid c1; do printf '%-10s%-10s\n' $rowid $c1;done
+```
+1 42
+2 77
+3 78
+Without the read -t 0 check the second read blocks:
+-t timeout... If timeout is 0, read returns success if input is available on the specified file descriptor, failure otherwise.  The exit status
+                     is greater than 128 if the timeout is exceeded.
+-u fd           Read input from file descriptor fd.
+
+
 #https://backreference.org/2011/08/10/running-local-script-remotely-with-arguments/
 
 #!/bin/bash
