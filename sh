@@ -187,6 +187,10 @@ line 3
         line 4
 
 #IF headaches:
+> [[ "$foo"=="bar" ]] && echo true || echo false
+true
+> [[ "$foo" == "bar" ]] && echo true || echo false
+false
 > retcode=1; if [[ $retcode -eq 0 ]]; then echo true;else echo false;fi
 false
 > retcode=1; if [[ $retcode == 0 ]]; then echo true;else echo false;fi
