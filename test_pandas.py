@@ -56,7 +56,7 @@ for (index_label, row_series) in df.iterrows():
    print('Row Index label : ', index_label)
    print('Row Content as Series : ', row_series.values)
 
-print("Iterate column-wise:(?)")
+print("Iterate row-wise:(?)")
 for (rowname, columns) in df.iterrows():
   print('Row: %s - %s -%s' % (rowname, columns, columns.values))
    
@@ -72,7 +72,7 @@ for (rowname, columns) in df.iterrows():
 def sanitize(string):
   return re.sub(r'[^a-zA-Z0-9-_./\n]', "_", string) # |tr -cs '[a-zA-Z0-9-_./\n]' '_'
   
-print("Iterate row-wise:(?)")
+print("Iterate col-wise:(?)")
 for colname, rows in df.items():
   
   colname = sanitize(colname)
