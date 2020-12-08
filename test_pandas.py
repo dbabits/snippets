@@ -1,3 +1,4 @@
+#!/bin/env python3
 import pandas as pd
 import subprocess
 import sys
@@ -55,7 +56,7 @@ for (index_label, row_series) in df.iterrows():
    print('Row Index label : ', index_label)
    print('Row Content as Series : ', row_series.values)
 
-print("Iterate row-wise:")
+print("Iterate column-wise:(?)")
 for (rowname, columns) in df.iterrows():
   print('Row: %s - %s -%s' % (rowname, columns, columns.values))
    
@@ -71,9 +72,8 @@ for (rowname, columns) in df.iterrows():
 def sanitize(string):
   return re.sub(r'[^a-zA-Z0-9-_./\n]', "_", string) # |tr -cs '[a-zA-Z0-9-_./\n]' '_'
   
-print("Iterate column-wise:")
+print("Iterate row-wise:(?)")
 for colname, rows in df.items():
-  #print ("col:%s rows:\n%s" %(colname,rows))
   
   colname = sanitize(colname)
   metric_raw = 'node.iostat.'+colname
@@ -81,18 +81,18 @@ for colname, rows in df.items():
   metric_max = metric_raw + '_max'
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':float(rows.sum()),'tags':{'hostname':hostname} }
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':float(rows.sum()),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_max, 'value':float(rows.max()),'tags':{'hostname':hostname} }
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_max,'asset':hostname+'-'+metric_max, 'value':float(rows.max()),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
   for row_name,value in rows.items():
     #print ("row:%s, value:%s" %(row_name,value))
     row_name = sanitize(row_name)
     print(json.dumps(
-      {'domain':'dba','timestamp':int(time.time()),'metric':metric_raw,'asset':hostname+'-'+metric_raw, 'value':value,'tags':{'device':row_name,'hostname':hostname} }
+      {'domain':'dba','timestamp':int(time.time()),'metric':metric_raw,'asset':hostname+'-'+metric_raw, 'value':value,'tags':{'device':row_name,'hostname':hostname} },sort_keys=True
     ))
   
   #print("for col %s:max=%s; sum=%s" % (colname,rows.max(),rows.sum()))
