@@ -73,7 +73,7 @@ def sanitize(string):
   return re.sub(r'[^a-zA-Z0-9-_./\n]', "_", string) # |tr -cs '[a-zA-Z0-9-_./\n]' '_'
   
 print("Iterate col-wise:(?)")
-for colname, rows in df.items():
+for colname, serie in df.items():
   
   colname = sanitize(colname)
   metric_raw = 'node.iostat.'+colname
@@ -81,14 +81,14 @@ for colname, rows in df.items():
   metric_max = metric_raw + '_max'
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':float(rows.sum()),'tags':{'hostname':hostname} },sort_keys=True
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':float(serie.sum()),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_max,'asset':hostname+'-'+metric_max, 'value':float(rows.max()),'tags':{'hostname':hostname} },sort_keys=True
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_max,'asset':hostname+'-'+metric_max, 'value':float(serie.max()),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
-  for row_name,value in rows.items():
+  for row_name,value in serie.items():
     #print ("row:%s, value:%s" %(row_name,value))
     row_name = sanitize(row_name)
     print(json.dumps(
