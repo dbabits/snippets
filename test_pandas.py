@@ -81,18 +81,18 @@ for colname, serie in df.items():
   metric_max = metric_raw + '_max'
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':float(serie.sum()),'tags':{'hostname':hostname} },sort_keys=True
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_sum,'asset':hostname+'-'+metric_sum, 'value':round(float(serie.sum()),2),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
   print(json.dumps(
-    {'domain':'dba','timestamp':int(time.time()),'metric':metric_max,'asset':hostname+'-'+metric_max, 'value':float(serie.max()),'tags':{'hostname':hostname} },sort_keys=True
+    {'domain':'dba','timestamp':int(time.time()),'metric':metric_max,'asset':hostname+'-'+metric_max, 'value':round(float(serie.max()),2),'tags':{'hostname':hostname} },sort_keys=True
   ))  
 
   for row_name,value in serie.items():
     #print ("row:%s, value:%s" %(row_name,value))
     row_name = sanitize(row_name)
     print(json.dumps(
-      {'domain':'dba','timestamp':int(time.time()),'metric':metric_raw,'asset':hostname+'-'+metric_raw, 'value':value,'tags':{'device':row_name,'hostname':hostname} },sort_keys=True
+      {'domain':'dba','timestamp':int(time.time()),'metric':metric_raw,'asset':hostname+'-'+metric_raw, 'value':round(float(value),2),'tags':{'device':row_name,'hostname':hostname} },sort_keys=True
     ))
   
   #print("for col %s:max=%s; sum=%s" % (colname,rows.max(),rows.sum()))
