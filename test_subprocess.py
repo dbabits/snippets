@@ -1,4 +1,7 @@
+#!/home/ec2-user/bin/miniconda3/bin/python3
 #!/usr/bin/python3
+#!/usr/bin/python3 version:3.5.10 exibits the problem
+#!/home/ec2-user/bin/miniconda3/bin/python3  version:3.8.5 exibits the problem
 
 import subprocess
 import sys
@@ -9,7 +12,7 @@ import logging
 logger = logging.getLogger()
 logging.basicConfig(format='%(asctime)s|%(levelname)s|%(module)s|%(funcName)s|%(lineno)d|%(message)s',level=logging.DEBUG if os.getenv('DEBUG','0') > '0' else logging.INFO)
 
-logger.info(sys.version)
+logger.info("python version:%s",sys.version.replace('\n',' '))
 cmd = "echo -n sleeping 10;echo -n this is stderr >&2; sleep 10"
 timeout = 5
 def problem():
