@@ -95,4 +95,5 @@ for colname, serie in df.items():
       {'domain':'dba','timestamp':int(time.time()),'metric':metric_raw,'asset':hostname+'-'+metric_raw, 'value':round(float(value),2),'tags':{'device':row_name,'hostname':hostname} },sort_keys=True
     ))
   
+
   #print("for col %s:max=%s; sum=%s" % (colname,rows.max(),rows.sum()))
